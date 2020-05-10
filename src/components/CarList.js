@@ -1,10 +1,14 @@
 import React from 'react';
 
-const CarList = () => {
+import CarItem from './CarItem';
 
+const CarList = (props) => {
+    const { cars } = props;
     return (
         <div className="right-column">
-            Машина
+            {cars.map(el => (
+                <CarItem key={el.id} {...el} />
+            ))}
         </div>
     )
 }

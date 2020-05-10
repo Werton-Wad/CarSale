@@ -28,7 +28,7 @@ console.log(carState);
             :
             ''}
             
-            <CarList />
+            <CarList cars={cars}/>
         </div>
     )
 }
