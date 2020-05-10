@@ -1,0 +1,15 @@
+.wrapper {
+    margin: 0 auto;
+    width: 1200px;
+    display: flex;
+}
+
+.left-column {
+    flex-basis: 27%;
+    border: 1px solid black;
+}
+
+.right-column {
+    flex-basis: 73%;
+    border: 1px solid black;
+}
