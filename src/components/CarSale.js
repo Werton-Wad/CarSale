@@ -1,13 +1,17 @@
 import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
 
+
+import 'bootstrap/dist/css/bootstrap.min.css';
 import './CarSale.css';
 import SelectionCar from './SelectionCar';
 import CarList from './CarList';
 import { getCars, getDict } from '../redux/actions';
 
 const CarSale = (props) => {
-    const { cars, isListLoaded, dict, isDictLoaded, getCars, getDict } = props;
+    const { cars, isListLoaded, dict, isDictLoaded, carState, manufacturer, carBody, getCars, getDict } = props;
+console.log(carState);
+
     
     useEffect(() => {
         if (!isListLoaded) {
@@ -20,7 +24,10 @@ const CarSale = (props) => {
 
     return (
         <div className="wrapper">
-            <SelectionCar />
+            {isDictLoaded ? <SelectionCar carState={carState} manufacturer={manufacturer} carBody={carBody}/>
+            :
+            ''}
+            
             <CarList />
         </div>
     )
@@ -32,6 +39,9 @@ const mapStateToProps = (state) => {
       isListLoaded: state.carSale.isListLoaded,
       dict: state.carSale.dict,
       isDictLoaded: state.carSale.isDictLoaded,
+      carState: state.carSale.dict.state,
+      manufacturer: state.carSale.dict.manufacturer,
+      carBody: state.carSale.dict.body_type,
     };
   }
 

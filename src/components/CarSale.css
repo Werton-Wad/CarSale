@@ -1,15 +1,33 @@
 .wrapper {
+    padding: 0;
     margin: 0 auto;
     width: 1200px;
     display: flex;
+    font-family: "Times New Roman", sans-serif;
+    font-size: 16px;
 }
 
 .left-column {
     flex-basis: 27%;
     border: 1px solid black;
+    padding: 0 10px 10px 10px;
+    
+}
+.left-column__text {
+    display: inline-block;
+    margin-top: 20px;
+    font-weight: bold;
 }
 
 .right-column {
     flex-basis: 73%;
     border: 1px solid black;
+}
+.custom-select {
+    display: block;
+    width: 300px;
+}
+.form-control {
+    display: inline-block;
+    width: 50%;
 }
