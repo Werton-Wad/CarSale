@@ -1,8 +1,9 @@
 
-const filterPrice = (from, to, cars) => {
-    const price = cars.map(el => Number(el.price.converted.BYN.amount));
-    return price.filter(el => el >= from && el <= to);
-
+const filterPrice = (from=0, to=Infinity, cars) => {
+    const finedCars = cars.filter(el => {
+      if (Number(el.price.converted.BYN.amount) >= from && Number(el.price.converted.BYN.amount) <= to) return el;
+    });
+    return finedCars;
 }
 
 export {

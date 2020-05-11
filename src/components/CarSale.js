@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { connect } from 'react-redux';
 
 
@@ -13,7 +13,7 @@ import { filterPrice } from './Settings';
 const CarSale = (props) => {
     const { cars, isListLoaded, dict, isDictLoaded, carState, manufacturer, carBody, getCars, getDict } = props;
 console.log(carState);
-
+// const [currentCars, setCurrentCars] = useState(cars);
     
     useEffect(() => {
         if (!isListLoaded) {
@@ -24,12 +24,12 @@ console.log(carState);
          } 
     });
 
-    // console.log(filterPrice(1000, 5000, cars));
-    
+    console.log(filterPrice(3000, 4000, cars));
+
 
     return (
         <div className="wrapper">
-            {isDictLoaded ? <SelectionCar carState={carState} manufacturer={manufacturer} carBody={carBody}/>
+            {isDictLoaded ? <SelectionCar carState={carState} manufacturer={manufacturer} carBody={carBody} />
             :
             ''}
             
@@ -47,6 +47,7 @@ const mapStateToProps = (state) => {
       carState: state.carSale.dict.state,
       manufacturer: state.carSale.dict.manufacturer,
       carBody: state.carSale.dict.body_type,
+      
     };
   }
 

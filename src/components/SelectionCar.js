@@ -3,13 +3,15 @@ import React, { useState, useCallback } from 'react';
 const SelectionCar = (props) => {
     const { carState, manufacturer, carBody } = props;
 
-    // const [searchPrice, setSearchPrice] = useState({from: '', to: ''});
+    const [searchPrice, setSearchPrice] = useState({from: '', to: ''});
 
-    // const handlePriceChange = useCallback(e => setSearchValue(e.target.value), []);
+    const handlePriceChange = useCallback(e => {
+        const {name, value} = e.target;
+        setSearchPrice(({ [name]: value }), []);
+    })
 
-  
-
-
+    console.log(searchPrice);
+    
     return (
         <div className="left-column">
             <span className="left-column__text">Состояние атомобиля</span>
@@ -19,10 +21,10 @@ const SelectionCar = (props) => {
                     <option key={el.id} value={el.name}>{el.name}</option>
                 ))}
             </select>
-
+{/* onBlur={} */}
             <span className="left-column__text">Цена, BYN</span> <br/>
-            <input type="number" name="from" className="form-control" placeholder="от"/>
-            <input type="number" name="to" className="form-control" placeholder="до" />
+            <input type="number" name="from" className="form-control" placeholder="от" onChange={handlePriceChange} />
+            <input type="number" name="to" className="form-control" placeholder="до" onChange={handlePriceChange} />
 
             <span className="left-column__text">Марка</span>
             <select className="custom-select" name="selectedState">
