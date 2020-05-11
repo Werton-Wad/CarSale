@@ -8,6 +8,8 @@ import SelectionCar from './SelectionCar';
 import CarList from './CarList';
 import { getCars, getDict } from '../redux/actions';
 
+import { filterPrice } from './Settings';
+
 const CarSale = (props) => {
     const { cars, isListLoaded, dict, isDictLoaded, carState, manufacturer, carBody, getCars, getDict } = props;
 console.log(carState);
@@ -21,6 +23,9 @@ console.log(carState);
             getDict(); 
          } 
     });
+
+    // console.log(filterPrice(1000, 5000, cars));
+    
 
     return (
         <div className="wrapper">

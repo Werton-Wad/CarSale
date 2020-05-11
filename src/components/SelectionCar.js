@@ -1,7 +1,15 @@
-import React from 'react';
+import React, { useState, useCallback } from 'react';
 
 const SelectionCar = (props) => {
     const { carState, manufacturer, carBody } = props;
+
+    // const [searchPrice, setSearchPrice] = useState({from: '', to: ''});
+
+    // const handlePriceChange = useCallback(e => setSearchValue(e.target.value), []);
+
+  
+
+
     return (
         <div className="left-column">
             <span className="left-column__text">Состояние атомобиля</span>
@@ -13,8 +21,8 @@ const SelectionCar = (props) => {
             </select>
 
             <span className="left-column__text">Цена, BYN</span> <br/>
-            <input type="text" className="form-control" placeholder="от"/>
-            <input type="text" className="form-control" placeholder="до" />
+            <input type="number" name="from" className="form-control" placeholder="от"/>
+            <input type="number" name="to" className="form-control" placeholder="до" />
 
             <span className="left-column__text">Марка</span>
             <select className="custom-select" name="selectedState">
