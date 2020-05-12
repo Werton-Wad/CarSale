@@ -1,9 +1,13 @@
 import React, { useState, useCallback } from 'react';
 
 const SelectionCar = (props) => {
-    const { carState, manufacturer, carBody, filterPrice, filterManufacturer, filterBodyType } = props;
+    const { carState, manufacturer, carBody, filterPrice, filterManufacturer, filterBodyType, filterStateCar } = props;
 
     const [searchPrice, setSearchPrice] = useState({from: '', to: ''});
+
+    const handleStateCarChange = useCallback(e => {
+        filterStateCar(e.target.value);
+    }, [filterStateCar]);
 
     const handlePriceChange = useCallback(e => {
         const {name, value} = e.target;
@@ -21,10 +25,10 @@ const SelectionCar = (props) => {
     return (
         <div className="left-column">
             <span className="left-column__text">Состояние атомобиля</span>
-            <select className="custom-select" name="selectedState">
+            <select className="custom-select" name="selectedState" onChange={handleStateCarChange}>
                 <option selected>Любое</option>
                 {carState.map(el => (
-                    <option key={el.id} value={el.name}>{el.name}</option>
+                    <option key={el.id} value={el.id}>{el.name}</option>
                 ))}
             </select>
             <span className="left-column__text">Цена, BYN</span> <br/> 

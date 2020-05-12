@@ -26,6 +26,13 @@ const CarSale = (props) => {
         }
     });
 
+    const filterStateCar = (value) => {
+        const finedCars = cars.filter(el => {
+            if (el.specs.state.toLowerCase() === value.toLowerCase()) return el;
+        }); 
+        setCurrentCars(finedCars);
+    }
+
     const filterPrice = (from=0, to=Infinity) => {
         const finedCars = cars.filter(el => {
           if (Number(el.price.converted.BYN.amount) >= from && Number(el.price.converted.BYN.amount) <= to) return el;
@@ -52,6 +59,7 @@ const CarSale = (props) => {
                 carState={carState}
                 manufacturer={manufacturer}
                 carBody={carBody}
+                filterStateCar={filterStateCar}
                 filterPrice={filterPrice}
                 filterManufacturer={filterManufacturer}
                 filterBodyType={filterBodyType}
