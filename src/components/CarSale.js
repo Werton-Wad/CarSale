@@ -8,32 +8,58 @@ import SelectionCar from './SelectionCar';
 import CarList from './CarList';
 import { getCars, getDict } from '../redux/actions';
 
-import { filterPrice } from './Settings';
+// import { filterPrice } from './Settings';
 
 const CarSale = (props) => {
     const { cars, isListLoaded, dict, isDictLoaded, carState, manufacturer, carBody, getCars, getDict } = props;
-console.log(carState);
-// const [currentCars, setCurrentCars] = useState(cars);
-    
+    const [currentCars, setCurrentCars] = useState(cars);
+    console.log(currentCars);
+
+
+
     useEffect(() => {
         if (!isListLoaded) {
-           getCars(); 
-        } 
+            getCars();
+        }
         if (!isDictLoaded) {
-            getDict(); 
-         } 
+            getDict();
+        }
     });
 
-    console.log(filterPrice(3000, 4000, cars));
+    const filterPrice = (from=0, to=Infinity) => {
+        const finedCars = cars.filter(el => {
+          if (Number(el.price.converted.BYN.amount) >= from && Number(el.price.converted.BYN.amount) <= to) return el;
+        });
+        setCurrentCars(finedCars);
+    }
+    
+    const filterManufacturer = (value) => {
+        const finedCars = cars.filter(el => {
+            if (el.manufacturer.slug.toLowerCase() === value.toLowerCase()) return el;
+        }); 
+        setCurrentCars(finedCars);
+    }
 
-
+    const filterBodyType = (value) => {
+        const finedCars = cars.filter(el => {
+            if (el.specs.body_type.toLowerCase() === value.toLowerCase()) return el;
+        }); 
+        setCurrentCars(finedCars);
+    }
     return (
         <div className="wrapper">
-            {isDictLoaded ? <SelectionCar carState={carState} manufacturer={manufacturer} carBody={carBody} />
-            :
-            ''}
-            
-            <CarList cars={cars}/>
+            {isDictLoaded ? <SelectionCar
+                carState={carState}
+                manufacturer={manufacturer}
+                carBody={carBody}
+                filterPrice={filterPrice}
+                filterManufacturer={filterManufacturer}
+                filterBodyType={filterBodyType}
+            />
+                :
+                ''}
+
+            <CarList cars={currentCars.length === 0 ? cars : currentCars} />
         </div>
     )
 }

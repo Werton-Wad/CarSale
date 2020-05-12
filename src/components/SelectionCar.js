@@ -1,16 +1,22 @@
 import React, { useState, useCallback } from 'react';
 
 const SelectionCar = (props) => {
-    const { carState, manufacturer, carBody } = props;
+    const { carState, manufacturer, carBody, filterPrice, filterManufacturer, filterBodyType } = props;
 
     const [searchPrice, setSearchPrice] = useState({from: '', to: ''});
 
     const handlePriceChange = useCallback(e => {
         const {name, value} = e.target;
-        setSearchPrice(({ [name]: value }), []);
-    })
+        setSearchPrice(({ [name]: Number(value) }), []);
+    });
 
-    console.log(searchPrice);
+    const handleManufacturerChange = useCallback(e => {
+        filterManufacturer(e.target.value);
+    }, [filterManufacturer]);
+
+    const handleBodyTypeChange = useCallback(e => {
+        filterBodyType(e.target.value);
+    }, [filterBodyType]);
     
     return (
         <div className="left-column">
@@ -21,23 +27,22 @@ const SelectionCar = (props) => {
                     <option key={el.id} value={el.name}>{el.name}</option>
                 ))}
             </select>
-{/* onBlur={} */}
-            <span className="left-column__text">Цена, BYN</span> <br/>
-            <input type="number" name="from" className="form-control" placeholder="от" onChange={handlePriceChange} />
-            <input type="number" name="to" className="form-control" placeholder="до" onChange={handlePriceChange} />
+            <span className="left-column__text">Цена, BYN</span> <br/> 
+            <input type="number" name="from" className="form-control" placeholder="от" onChange={handlePriceChange} onBlur={() => filterPrice(searchPrice.from, searchPrice.to)   } />
+            <input type="number" name="to" className="form-control" placeholder="до" onChange={handlePriceChange} onBlur={() => filterPrice(searchPrice.from, searchPrice.to)}/>
 
             <span className="left-column__text">Марка</span>
-            <select className="custom-select" name="selectedState">
+            <select className="custom-select" name="selectedState" onChange={handleManufacturerChange}>
                 {manufacturer.map(el => (
-                    <option key={el.id} value={el.name}>{el.name}</option>
+                    <option key={el.id} value={el.slug}>{el.name}</option>
                 ))}
             </select>
 
             <span className="left-column__text">Тип кузова</span>
-            <select className="custom-select" name="selectedState">
+            <select className="custom-select" name="selectedState" onChange={handleBodyTypeChange}>
                 <option selected>Любой</option>
                 {carBody.map(el => (
-                    <option key={el.id} value={el.name}>{el.name}</option>
+                    <option key={el.id} value={el.id}>{el.name}</option>
                 ))}
             </select>
 
